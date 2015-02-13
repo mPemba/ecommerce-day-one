@@ -16,7 +16,9 @@ var schema = new Schema({
 		work: {type: Number}
 	}],
 	password: {type: String, required: true, uniqueness: true},
-	active: {type: Boolean, required: true}
+	active: {type: Boolean, required: true}, 
+	createdAt: {type: Date, default: Date.now},
+	updatedAt: {type: Date, default: Date.now}
 })
 
 module.exports = mongoose.model('customer', schema);
