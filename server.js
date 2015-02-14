@@ -6,6 +6,9 @@ var customer = require('./public/lib/models/customerModel.js');
 var product = require('./public/lib/models/productModel.js');
 var order = require('./public/lib/models/orderModel.js');
 var addProduct = require('./migrations/1423872387134-add-product.js');
+var customerCtrl = require('./public/lib/controllers/customerCtrl.js');
+var orderCtrl = require('./public/lib/controllers/orderCtrl.js');
+var productCtrl = require('./public/lib/controllers/productCtrl.js');
 
 var app = express();
 var port = 8666;
@@ -19,71 +22,14 @@ mongoose.connection.once('open', function() {
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 
-app.post('/api/customer', function(req, res) {
-	customer.create(req.body).then(function(response) {
-		res.status(200).json(response);
-	}, function(err) {
-		res.status(420).json(err);
-	})
-})
+app.post('/api/customer', customerCtrl.post);
+app.get('/api/customer', customerCtrl.get);
 
-app.get('/api/customer', function(req, res) {
-	customer.find({}, function(err, docs) {
-		if (!err) {
-			if (docs.length === 0) {
-				res.status(404).send("no docs found yo!");
-			} else {
-				res.status(200).json(docs);
-			}
-		} else {
-			res.status(420).json(err);
-		}
-	})
-})
+app.post('/api/product/', productCtrl.post);
+app.get('/api/product/', productCtrl.get);
 
-app.post('/api/product', function(req, res) {
-	product.create(req.body).then(function(response) {
-		res.status(200).json(response);
-	}, function(err) {
-		res.status(420).json(err);
-	})
-})
-
-app.get('/api/product', function(req, res) {
-	product.find({}, function(err, docs) {
-		if (!err) {
-			if (docs.length === 0) {
-				res.status(404).send("no docs found yo!");
-			} else {
-				res.status(200).json(docs);
-			}
-		} else {
-			res.status(420).json(err);
-		}
-	})
-})
-
-app.post('/api/order', function(req, res) {
-	order.create(req.body).then(function(response) {
-		res.status(200).json(response);
-	}, function(err) {
-		res.status(420).json(err);
-	})
-})
-
-app.get('/api/order', function(req, res) {
-	order.find({}, function(err, docs) {
-		if (!err) {
-			if (docs.length === 0) {
-				res.status(404).send('no docs found yo!');
-			} else {
-				res.status(200).json(docs);
-			}
-		} else {
-			res.status(420).json(err);
-		}
-	})
-})
+app.post('/api/order', orderCtrl.post);
+app.get('/api/order', orderCtrl.get);
 
 app.listen(port, function() {
 	console.log('listening on port ' + port);
