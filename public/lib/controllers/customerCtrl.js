@@ -16,6 +16,6 @@ module.exports.get = function(req, res) {
 			res.status(200).json("absolutely nothing");
 		}
 	}, function(err) {
-
+		  res.status(420).json(err);
 	})
 }
