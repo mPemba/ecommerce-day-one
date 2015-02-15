@@ -1,8 +1,7 @@
-* {
-	outline: 1px dotted green;
+.html, body {
+	width: 100%;
+	height: 100%;
 }
-
-
 .home-container {
 	text-align: center;
 }
