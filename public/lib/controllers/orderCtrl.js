@@ -1,5 +1,7 @@
+var orderService = require('../services/orderService.js');
+
 module.exports.post = function(req, res) {
-	order.create(req.body).then(function(response) {
+	orderService.save(req.body).then(function(response) {
 		res.status(200).json(response);
 	}, function(err) {
 		res.status(420).json(err);
@@ -7,15 +9,13 @@ module.exports.post = function(req, res) {
 }
 
 module.exports.get = function(req, res) {
-	order.find({}, function(err, docs) {
-		if (!err) {
-			if (docs.length === 0) {
-				res.status(404).send("no docs found");
-			} else {
-				res.status(200).json(docs);
-			}
+	orderService.find(req.query).then(function(response) {
+		if (response.length) {
+			res.status(200).json(response);
 		} else {
-			res.status(420).json(err);
+			res.status(200).json("absolutely nothing");
 		}
+	}, function(err) {
+		  res.status(420).json(err);
 	})
 }
