@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var product = require('./productModel');
 
 var schema = new Schema({
 	name: {type: String, required: true, index: true},
@@ -18,7 +19,15 @@ var schema = new Schema({
 	password: {type: String, required: true, uniqueness: true},
 	active: {type: Boolean, required: true}, 
 	createdAt: {type: Date, default: Date.now},
-	updatedAt: {type: Date, default: Date.now}
+	updatedAt: {type: Date, default: Date.now},
+	cart: [{
+		product: {
+			name: { type: String, unique: true, required: true },
+			price: { type: Number, required: true, precision: 2 },
+			description: { type: String, required: true }
+		},
+		quantity: { type: Number, required: true, min: 1 }
+	}]
 })
 
 module.exports = mongoose.model('customer', schema);

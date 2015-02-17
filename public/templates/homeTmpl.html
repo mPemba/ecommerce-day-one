@@ -6,4 +6,17 @@
     <li> <a class="navbar-link" href="/#/customer">Customer Page</a> </li>
   </ul>
 </div>
+
+<div>
+  <ul class="list-group">
+    <li ng-repeat="items in products">
+        <div>
+          item: {{item.name}}<br />
+          price: ${{item.price}}<br />
+          description: {{item.description}}
+        </div>
+    </li>
+  </ul>
+</div>
+
 </div>

@@ -2,13 +2,19 @@ var express = require('express');
 var mongoose = require('mongoose');
 var migrate = require('migrate');
 var bodyParser = require('body-parser');
+
 var customer = require('./public/lib/models/customerModel.js');
 var product = require('./public/lib/models/productModel.js');
 var order = require('./public/lib/models/orderModel.js');
+
 var addProduct = require('./migrations/1423872387134-add-product.js');
 var customerCtrl = require('./public/lib/controllers/customerCtrl.js');
 var orderCtrl = require('./public/lib/controllers/orderCtrl.js');
 var productCtrl = require('./public/lib/controllers/productCtrl.js');
+
+var customerService = require('./public/lib/services/customerService.js');
+var productService = require('./public/lib/services/productService.js');
+var orderService = require('./public/lib/services/orderService.js');
 
 var app = express();
 var port = 8666;
